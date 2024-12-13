@@ -1,0 +1,24 @@
+services:
+  user:
+    build:
+      context: ./services/user
+    ports:
+      - "3001:3000"
+    environment:
+      - MONGO_URI_FILE=/run/secrets/mongo_uri_user
+    secrets:
+      - mongo_uri_user
+  task:
+    build:
+      context: ./services/task
+    ports:
+      - "3002:3000"
+    environment:
+      - MONGO_URI_FILE=/run/secrets/mongo_uri_task
+    secrets:
+      - mongo_uri_task
+secrets:
+  mongo_uri_user:
+    file: ./secrets/mongo_uri_user.secret
+  mongo_uri_task:
+    file: ./secrets/mongo_uri_task.secret
